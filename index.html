@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <meta charset="utf-8" />
+            <meta name='viewport'
+         content='width=device-width, initial-scale=1.0, maximum-scale=1.0' />
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap" rel="stylesheet">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css"             
+         integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/pure-min.css" integrity="sha384-oAOxQR6DkCoMliIh8yFnu25d7Eq/PHS21PClpwjOTeU2jRSq11vu66rf90/cZr47" crossorigin="anonymous">
+  <link rel="stylesheet" href="styles.css">
+  <title>Jokes</title>
+</head>
+
+<body>
+  <!-- NAVBAR -->   
+      <nav class="navbar sticky-top navbar-expand-lg navbar-dark" style="background-color:  gray;">
+             <img class="navbar-brand" src=''>
+               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+               </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+               <ul class="navbar-nav mr-auto">
+                  <li class="nav-item active">
+                     <a class="nav-link" href="index.html" style="color: white">Main Joke Page <span class="sr-only">(current)</span></a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="chuck.html" style="color: white">Chuck Norris Jokes</a>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link" href="about.html" style="color: white">About</a>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link" href="reviews.html" style="color: black"></a>
+                  </li>
+               </ul>
+            </div>
+        </nav>
+        <!--navbar-->
+        <div class = 'body2'>
+    <div id = 'root'></div>
+        <script type="text/babel">
+          const root = ReactDOM.createRoot(
+              document.getElementById('root')
+          );
+          const {useState, useEffect} = React;
+        function Timer() {
+        const [joke, setJoke] = useState("");
+        function apiCall() {
+              let s = document.getElementById('selector');
+              let type = s.options[s.selectedIndex].value;
+              let url = "https://v2.jokeapi.dev/joke/" + type + "?safe-mode";
+                // call API
+                fetch(url)
+                  .then(function(response) {
+                    // make sure the request was successful
+                    if (response.status != 200) {
+                      return "Error calling the Numbers API service: " + response.statusText;
+                    }
+                    return response.json();
+                  }).then(function(json) {
+                    console.log(json);
+                    // update DOM with response
+                    if (json.type == "twopart"){
+                      setJoke(json.setup + "\n" + json.delivery);
+                    }
+                    else {
+                      setJoke(json.joke);
+                    }
+              });
+          };
+        
+        
+          return (
+                <div>  
+                  <h1>Get unlimited jokes here!</h1>
+                
+                  <form class="pure-form" onSubmit= {e => e.preventDefault()}> <fieldset>
+                    <br></br>
+                    <p></p>
+                    <select id="selector">
+                      <option value="Any">Random</option>
+                      <option value="Misc">Misc</option>
+                      <option value="Pun">Pun</option>
+                      <option value="Spooky">Horror</option>
+                      <option value="Programming">Nerd Jokes</option>
+                    </select>
+                    <h2>Your Joke:</h2>
+                    <p>{joke}</p>
+                    <p></p>
+                    <button id="woo" onClick = {apiCall} class="pure-button pure-button-primary">Send it</button>
+                    </fieldset>
+                  </form>
+                  <p id="results"></p></div>);
+        }
+            root.render(<Timer />);
+
+        </script>
+         <!--navbar java-->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+        <!--<script text="type/javascript" src="script-numbers.js"></script>-->
+  
+<p>https://github.com/termedcashew/1029creative3</p>
+</body>
+
+</html>
